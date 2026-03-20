@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGENTIX AI — Autonomous AI Agent Teams for Small Business</title>
+<meta name="description" content="Agentix deploys autonomous AI agent teams that run your marketing, sales, and operations. Built for small businesses ready to scale without headcount.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c14;
+  --bg2:#0c1018;
+  --bg3:#0f141e;
+  --surface:rgba(255,255,255,0.025);
+  --border:rgba(255,255,255,0.06);
+  --border-h:rgba(210,160,80,0.25);
+  --orange:#d4a050;
+  --orange-light:#e8b86a;
+  --white:#eeeef2;
+  --gray:#8a8fa0;
+  --muted:#505568;
+  --dark-gray:#2a2e3a;
+  --font:'Inter',system-ui,sans-serif;
+  --display:'Space Grotesk',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--orange);color:var(--bg)}
+a{text-decoration:none;color:inherit}
+.container{max-width:1140px;margin:0 auto;padding:0 2.5rem}
+
+/* ===== LABEL (the small orange uppercase labels instig8 uses) ===== */
+.label{font-family:var(--mono);font-size:.65rem;color:var(--orange);letter-spacing:.25em;text-transform:uppercase;font-weight:500}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:1rem 0;transition:all .4s}
+nav.scrolled{background:rgba(8,12,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+nav .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.08em;display:flex;align-items:center;gap:.6rem}
+.logo-icon{width:28px;height:28px;border:1.5px solid var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+.logo-icon::after{content:'';width:6px;height:6px;background:var(--orange);border-radius:50%}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.65rem;font-weight:500;color:var(--gray);transition:color .3s;text-transform:uppercase;letter-spacing:.12em}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{font-family:var(--mono);font-size:.65rem;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:.12em;border:1px solid var(--orange);padding:.6rem 1.4rem;transition:all .3s;display:flex;align-items:center;gap:.5rem}
+.nav-cta:hover{background:var(--orange);color:var(--bg)}
+.nav-cta::after{content:'→'}
+.menu-btn{display:none;background:none;border:none;color:var(--white);font-size:1.2rem;cursor:pointer}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 0 6rem;position:relative;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-family:var(--display);font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:700;line-height:1.05;letter-spacing:-.03em}
+.hero h1 .accent{color:var(--orange)}
+.hero-sub{font-size:.95rem;color:var(--gray);max-width:480px;margin-top:2rem;line-height:1.8}
+.hero-cta-row{display:flex;align-items:center;gap:1.5rem;margin-top:3rem}
+.hero-cta-primary{font-family:var(--mono);font-size:.65rem;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:.15em;display:flex;align-items:center;gap:.5rem;transition:gap .3s}
+.hero-cta-primary:hover{gap:.9rem}
+.hero-cta-primary::after{content:'→'}
+.hero-meta{font-family:var(--mono);font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-top:4rem}
+
+/* Hero diagram (inspired by instig8's octagonal diagram) */
+.hero-diagram{position:relative;width:100%;aspect-ratio:1;max-width:420px;margin-left:auto}
+.diagram-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid var(--border);transform:translate(-50%,-50%)}
+.diagram-ring.r1{width:90%;height:90%}
+.diagram-ring.r2{width:65%;height:65%}
+.diagram-ring.r3{width:40%;height:40%}
+.diagram-ring.r4{width:18%;height:18%;border-color:var(--orange);background:rgba(212,160,80,.08)}
+.diagram-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:.55rem;color:var(--orange);letter-spacing:.2em;text-transform:uppercase;z-index:2}
+.diagram-node{position:absolute;font-family:var(--mono);font-size:.5rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;z-index:2}
+.diagram-dot{position:absolute;width:7px;height:7px;background:var(--orange);border-radius:50%;z-index:3;box-shadow:0 0 12px rgba(212,160,80,.4)}
+.diagram-line{position:absolute;background:var(--border);z-index:1}
+
+/* ===== STATS BAR ===== */
+.stats-bar{padding:4rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-bar .label{text-align:center;display:block;margin-bottom:3rem}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat .num{font-family:var(--display);font-size:2rem;font-weight:700;color:var(--orange);line-height:1}
+.stat .desc{font-size:.78rem;color:var(--gray);margin-top:.5rem;line-height:1.5}
+.stat .src{font-family:var(--mono);font-size:.55rem;color:var(--muted);margin-top:.4rem;text-transform:uppercase;letter-spacing:.1em}
+.stats-conclusion{text-align:center;margin-top:3rem;max-width:600px;margin-left:auto;margin-right:auto}
+.stats-conclusion p{font-size:.88rem;color:var(--gray);font-style:italic;line-height:1.7}
+.stats-conclusion .accent{color:var(--orange);font-style:italic}
+
+/* ===== TWO-COL EDITORIAL LAYOUT ===== */
+.editorial{padding:6rem 0}
+.editorial-inner{display:grid;grid-template-columns:240px 1fr;gap:4rem}
+.editorial-sidebar{position:sticky;top:8rem;align-self:start}
+.editorial-sidebar .label{margin-bottom:.5rem;display:block}
+.editorial-sidebar .sidebar-desc{font-size:.78rem;color:var(--muted);line-height:1.6;margin-top:.5rem}
+.editorial-sidebar .sidebar-link{font-family:var(--mono);font-size:.6rem;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;margin-top:1rem;transition:gap .3s}
+.editorial-sidebar .sidebar-link:hover{gap:.7rem}
+.editorial-sidebar .sidebar-link::after{content:'→'}
+
+/* ===== SECTION HEADLINE ===== */
+.sec-headline{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:700;line-height:1.12;letter-spacing:-.02em}
+.sec-headline .accent{color:var(--orange)}
+.sec-body{font-size:.92rem;color:var(--gray);line-height:1.8;margin-top:1.2rem;max-width:600px}
+
+/* ===== NUMBERED ITEMS ===== */
+.numbered-list{margin-top:3rem;display:flex;flex-direction:column}
+.numbered-item{display:flex;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.numbered-item:first-child{border-top:1px solid var(--border)}
+.num-marker{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--orange);min-width:28px;padding-top:2px}
+.num-content h3{font-size:1rem;font-weight:600;margin-bottom:.4rem}
+.num-content p{font-size:.85rem;color:var(--gray);line-height:1.7}
+
+/* ===== THREE COLUMN CARDS ===== */
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
+.col-card{background:var(--surface);border:1px solid var(--border);padding:2rem 1.5rem;transition:border-color .4s}
+.col-card:hover{border-color:var(--border-h)}
+.col-card h3{font-family:var(--mono);font-size:.65rem;color:var(--orange);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem}
+.col-card ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.col-card li{font-size:.82rem;color:var(--gray);padding-left:1.2rem;position:relative;line-height:1.55}
+.col-card li::before{content:'×';position:absolute;left:0;color:var(--muted);font-size:.8rem}
+
+/* ===== GAP BANNER ===== */
+.gap-banner{margin-top:3.5rem;padding:1.5rem 2rem;border-left:2px solid var(--orange);background:var(--surface)}
+.gap-banner p{font-family:var(--mono);font-size:.65rem;color:var(--gray);letter-spacing:.15em;text-transform:uppercase;line-height:1.8}
+
+/* ===== PILLARS ===== */
+.pillars{margin-top:3rem;display:flex;flex-direction:column;gap:0}
+.pillar-item{display:flex;gap:2.5rem;padding:2.5rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.pillar-item:first-child{border-top:1px solid var(--border)}
+.pillar-num{font-family:var(--mono);font-size:.65rem;color:var(--orange);letter-spacing:.15em;min-width:28px;padding-top:4px}
+.pillar-text h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+.pillar-text p{font-size:.85rem;color:var(--gray);line-height:1.7}
+
+/* ===== AGENTS GRID ===== */
+.agents-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3rem}
+.agent-card{display:flex;gap:1.2rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);transition:border-color .4s;align-items:flex-start}
+.agent-card:hover{border-color:var(--border-h)}
+.agent-marker{width:8px;height:8px;min-width:8px;background:var(--orange);border-radius:50%;margin-top:6px;box-shadow:0 0 8px rgba(212,160,80,.3)}
+.agent-info h4{font-size:.9rem;font-weight:600;margin-bottom:.2rem}
+.agent-info p{font-size:.78rem;color:var(--gray);line-height:1.55}
+.agent-info .status{font-family:var(--mono);font-size:.55rem;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-top:.4rem;display:flex;align-items:center;gap:.4rem}
+.agent-info .status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ===== MODULES ===== */
+.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.module-item{padding:1.5rem;background:var(--surface);border:1px solid var(--border);transition:border-color .4s}
+.module-item:hover{border-color:var(--border-h)}
+.module-item .module-num{font-family:var(--mono);font-size:.6rem;color:var(--orange);letter-spacing:.12em;margin-bottom:.6rem;display:block}
+.module-item h4{font-size:.9rem;font-weight:600;margin-bottom:.3rem}
+.module-item p{font-size:.78rem;color:var(--gray);line-height:1.55}
+
+/* ===== QUALIFY ===== */
+.qualify-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.qualify-box{padding:2rem 1.5rem;border:1px solid var(--border)}
+.qualify-box.yes{border-color:var(--border-h)}
+.qualify-box h3{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem}
+.qualify-box.yes h3{color:var(--orange)}
+.qualify-box.no h3{color:var(--muted)}
+.qualify-box ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.qualify-box li{font-size:.82rem;color:var(--gray);padding-left:1.5rem;position:relative;line-height:1.55}
+.qualify-box.yes li::before{content:'→';position:absolute;left:0;color:var(--orange)}
+.qualify-box.no li::before{content:'×';position:absolute;left:0;color:var(--muted);font-weight:700}
+
+/* ===== QUOTE BLOCK ===== */
+.quote-block{padding:5rem 0;text-align:center}
+.quote-block blockquote{font-family:var(--display);font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:600;font-style:italic;line-height:1.4;max-width:650px;margin:0 auto;color:var(--white)}
+.quote-block blockquote .accent{color:var(--orange);font-style:italic}
+.quote-block .quote-label{margin-bottom:1.5rem}
+
+/* ===== CTA ===== */
+.cta-section{padding:6rem 0;text-align:center;background:var(--bg2)}
+.cta-section h2{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.12;letter-spacing:-.02em;margin-top:1rem}
+.cta-section h2 .accent{color:var(--orange)}
+.cta-section .sec-body{max-width:480px;margin:1.2rem auto 0;text-align:center}
+.cta-btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:2.5rem;font-family:var(--mono);font-size:.7rem;font-weight:500;color:var(--bg);background:var(--orange);text-transform:uppercase;letter-spacing:.12em;padding:.85rem 2rem;border:1px solid var(--orange);transition:all .3s}
+.cta-btn:hover{background:transparent;color:var(--orange)}
+.cta-btn::after{content:'→'}
+.cta-note{font-family:var(--mono);font-size:.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-top:1.5rem}
+
+/* ===== FOOTER ===== */
+footer{padding:3rem 0 2rem;border-top:1px solid var(--border)}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;flex-wrap:wrap;gap:2rem}
+.footer-brand p{font-size:.75rem;color:var(--muted);margin-top:.6rem;max-width:280px;line-height:1.6}
+.footer-links-row{display:flex;gap:3rem}
+.footer-col h5{font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:.8rem}
+.footer-col a{display:block;font-size:.78rem;color:var(--gray);margin-bottom:.4rem;transition:color .3s}
+.footer-col a:hover{color:var(--orange)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);font-family:var(--mono);font-size:.55rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;flex-wrap:wrap;gap:.5rem}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.r1{transition-delay:.08s}.r2{transition-delay:.16s}.r3{transition-delay:.24s}.r4{transition-delay:.32s}
+
+/* ===== DIVIDER ===== */
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(8,12,20,.97);backdrop-filter:blur(20px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--display);font-size:1.4rem;font-weight:600;color:var(--gray);transition:color .3s}
+.mobile-menu a:hover{color:var(--orange)}
+.close-btn{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-diagram{display:none}
+  .editorial-inner{grid-template-columns:1fr}
+  .editorial-sidebar{position:static}
+  .three-col{grid-template-columns:1fr}
+  .modules-grid{grid-template-columns:repeat(2,1fr)}
+  .agents-grid{grid-template-columns:1fr}
+  .qualify-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .menu-btn{display:block}
+  .container{padding:0 1.5rem}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .modules-grid{grid-template-columns:1fr}
+  .footer-top{flex-direction:column}
+  .footer-links-row{flex-direction:column;gap:1.5rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <a href="#top" class="nav-logo"><span class="logo-icon"></span> AGENTIX AI</a>
+    <ul class="nav-links">
+      <li><a href="#agents">The Agents</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#thinking">Our Thinking</a></li>
+    </ul>
+    <a href="#start" class="nav-cta">Book a Scoping Call</a>
+    <button class="menu-btn" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('open')">&times;</button>
+  <a href="#agents" onclick="this.parentElement.classList.remove('open')">The Agents</a>
+  <a href="#services" onclick="this.parentElement.classList.remove('open')">Services</a>
+  <a href="#process" onclick="this.parentElement.classList.remove('open')">How It Works</a>
+  <a href="#thinking" onclick="this.parentElement.classList.remove('open')">Our Thinking</a>
+  <a href="#start" onclick="this.parentElement.classList.remove('open')" style="color:var(--orange)">Book a Scoping Call →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="label reveal">Autonomous AI Agent Teams</div>
+        <h1 class="reveal r1">Your business won't scale with more hires.<br><span class="accent">It'll scale with AI agents.</span></h1>
+        <p class="hero-sub reveal r2">The companies that win the next decade won't be the ones that hired fastest. They'll be the ones that deployed autonomous AI agents across every function — and let them execute.</p>
+        <div class="hero-cta-row reveal r3">
+          <a href="#start" class="hero-cta-primary">See if you qualify</a>
+        </div>
+        <div class="hero-meta reveal r4">Structured · Governed · Autonomous</div>
+      </div>
+      <div class="hero-diagram reveal r2" aria-hidden="true" id="diagram">
+        <div class="diagram-ring r1"></div>
+        <div class="diagram-ring r2"></div>
+        <div class="diagram-ring r3"></div>
+        <div class="diagram-ring r4"></div>
+        <div class="diagram-center">AGENTIX</div>
+        <!-- Nodes positioned around the circle -->
+        <div class="diagram-node" style="top:2%;left:50%;transform:translateX(-50%)">Marketing</div>
+        <div class="diagram-node" style="top:18%;right:2%">Sales</div>
+        <div class="diagram-node" style="top:50%;right:-2%;transform:translateY(-50%)">Analytics</div>
+        <div class="diagram-node" style="bottom:18%;right:5%">Content</div>
+        <div class="diagram-node" style="bottom:2%;left:50%;transform:translateX(-50%)">Operations</div>
+        <div class="diagram-node" style="bottom:18%;left:5%">Email</div>
+        <div class="diagram-node" style="top:50%;left:-1%;transform:translateY(-50%)">Social</div>
+        <div class="diagram-node" style="top:18%;left:5%">Lead Gen</div>
+        <!-- Dots -->
+        <div class="diagram-dot" style="top:8%;left:50%;transform:translateX(-50%)"></div>
+        <div class="diagram-dot" style="top:22%;right:12%"></div>
+        <div class="diagram-dot" style="top:50%;right:5%;transform:translateY(-50%)"></div>
+        <div class="diagram-dot" style="bottom:22%;right:12%"></div>
+        <div class="diagram-dot" style="bottom:8%;left:50%;transform:translateX(-50%)"></div>
+        <div class="diagram-dot" style="bottom:22%;left:12%"></div>
+        <div class="diagram-dot" style="top:50%;left:5%;transform:translateY(-50%)"></div>
+        <div class="diagram-dot" style="top:22%;left:12%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="label reveal">The Evidence</div>
+    <div class="stats-row">
+      <div class="stat reveal r1">
+        <div class="num" data-val="73">73%</div>
+        <div class="desc">of small businesses spend 20+ hours/week on tasks AI can automate</div>
+        <div class="src">McKinsey</div>
+      </div>
+      <div class="stat reveal r2">
+        <div class="num">$4,700</div>
+        <div class="desc">avg. monthly cost of one marketing hire vs $500 for an AI agent team</div>
+        <div class="src">BLS Data</div>
+      </div>
+      <div class="stat reveal r3">
+        <div class="num">24/7</div>
+        <div class="desc">AI agents don't sleep, don't quit, and don't need onboarding</div>
+        <div class="src">Operational Reality</div>
+      </div>
+      <div class="stat reveal r4">
+        <div class="num">10x</div>
+        <div class="desc">output velocity — content, lead gen, analytics — zero overhead</div>
+        <div class="src">Client Data</div>
+      </div>
+    </div>
+    <div class="stats-conclusion reveal">
+      <p>Every stat above describes the same structural opportunity. <span class="accent">Your business doesn't need more employees. It needs an AI agent team.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- THE DIAGNOSIS -->
+<section class="editorial" id="diagnosis">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-sidebar reveal">
+        <span class="label">The Diagnosis</span>
+        <p class="sidebar-desc">The real reason small businesses stay stuck. It's not budget. It's architecture.</p>
+      </div>
+      <div>
+        <h2 class="sec-headline reveal">This isn't a hiring problem.<br><span class="accent">It's an architecture problem.</span></h2>
+        <p class="sec-body reveal r1">You don't need more freelancers, agencies, or tools. You need a system that connects your strategy to autonomous execution — and runs it without you.</p>
+        <div class="numbered-list">
+          <div class="numbered-item reveal r1">
+            <div class="num-marker">01</div>
+            <div class="num-content">
+              <h3>You're doing everything manually.</h3>
+              <p>Social posts, email follow-ups, lead tracking, content writing — all done by hand. Every hour spent on execution is an hour not spent on growth.</p>
+            </div>
+          </div>
+          <div class="numbered-item reveal r2">
+            <div class="num-marker">02</div>
+            <div class="num-content">
+              <h3>You tried tools. Nothing stuck.</h3>
+              <p>You signed up for 6 platforms, watched 20 tutorials, and still can't get your marketing to run consistently. Tools without operators are just subscriptions.</p>
+            </div>
+          </div>
+          <div class="numbered-item reveal r3">
+            <div class="num-marker">03</div>
+            <div class="num-content">
+              <h3>You can't afford a full team.</h3>
+              <p>A marketing coordinator, content writer, ads specialist, email marketer, SEO expert, and analyst — that's $25K+/month. You need the output without the overhead.</p>
+            </div>
+          </div>
+          <div class="numbered-item reveal r4">
+            <div class="num-marker">04</div>
+            <div class="num-content">
+              <h3>Your competitors are already automating.</h3>
+              <p>While you're manually posting on LinkedIn, your competitors have AI agents generating leads, nurturing prospects, and closing deals 24/7.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHY OTHERS FAIL -->
+<section class="editorial">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-sidebar reveal">
+        <span class="label">Why Others Fail</span>
+        <p class="sidebar-desc">Everyone sees the problem. Nobody sits in the right seat to solve it.</p>
+      </div>
+      <div>
+        <h2 class="sec-headline reveal">Everyone sees the problem.<br><span class="accent">Nobody has the right solution.</span></h2>
+        <div class="three-col">
+          <div class="col-card reveal r1">
+            <h3>Freelancers</h3>
+            <ul>
+              <li>Inconsistent availability</li>
+              <li>No strategic alignment</li>
+              <li>One skill, one person</li>
+              <li>Constant management overhead</li>
+              <li>Zero scalability</li>
+            </ul>
+          </div>
+          <div class="col-card reveal r2">
+            <h3>Agencies</h3>
+            <ul>
+              <li>$3K–10K/month retainers</li>
+              <li>Slow turnaround times</li>
+              <li>Cookie-cutter playbooks</li>
+              <li>Limited transparency</li>
+              <li>Locked into contracts</li>
+            </ul>
+          </div>
+          <div class="col-card reveal r3">
+            <h3>DIY Tools</h3>
+            <ul>
+              <li>Require your time to operate</li>
+              <li>No strategy built in</li>
+              <li>Tool fatigue and overlap</li>
+              <li>Integration nightmares</li>
+              <li>You become the bottleneck</li>
+            </ul>
+          </div>
+        </div>
+        <div class="gap-banner reveal">
+          <p>Agentix sits in the gap between strategy and execution — the only firm that installs both.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHAT WE INSTALL -->
+<section class="editorial" id="services">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-sidebar reveal">
+        <span class="label">What We Install</span>
+        <p class="sidebar-desc">Not a chatbot. Not a dashboard. A coordinated team of AI agents.</p>
+        <a href="#agents" class="sidebar-link">Meet the agents</a>
+      </div>
+      <div>
+        <h2 class="sec-headline reveal">We deploy <span class="accent">autonomous AI agent teams</span> that run your business.</h2>
+        <p class="sec-body reveal r1">Each agent has a role, KPIs, and the ability to execute without human intervention. Together, they form an operating system for your business.</p>
+        <div class="pillars">
+          <div class="pillar-item reveal r1">
+            <div class="pillar-num">01</div>
+            <div class="pillar-text">
+              <h3>Strategic Alignment</h3>
+              <p>Your business goals encoded into every agent. Target audience, brand voice, KPIs, and growth priorities — baked into the system. Not a document. An operating directive.</p>
+            </div>
+          </div>
+          <div class="pillar-item reveal r2">
+            <div class="pillar-num">02</div>
+            <div class="pillar-text">
+              <h3>Autonomous Execution</h3>
+              <p>Every workflow mapped and assigned. Content creation, lead scoring, email sequences, ad optimization, social posting, analytics — all running 24/7.</p>
+            </div>
+          </div>
+          <div class="pillar-item reveal r3">
+            <div class="pillar-num">03</div>
+            <div class="pillar-text">
+              <h3>Continuous Optimization</h3>
+              <p>Agents learn and improve. They track what works, kill what doesn't, and surface insights for decisions only you can make. The system gets smarter every week.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- AI AGENTS -->
+<section class="editorial" id="agents">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-sidebar reveal">
+        <span class="label">Your AI Agent Team</span>
+        <p class="sidebar-desc">Eight agents. One mission. Grow your business autonomously.</p>
+      </div>
+      <div>
+        <h2 class="sec-headline reveal">Meet the agents that <span class="accent">run your operations.</span></h2>
+        <div class="agents-grid">
+          <div class="agent-card reveal r1">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Marketing Coordinator</h4>
+              <p>Orchestrates all agents, aligns campaigns with goals, delivers weekly performance reports.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r2">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Content & SEO Agent</h4>
+              <p>Writes SEO blogs, LinkedIn posts, website copy. Optimizes for search rankings and engagement.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r1">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Lead Gen & Segmentation</h4>
+              <p>Identifies prospects, scores leads (Hot/Warm/Cold), segments by ICP fit and intent signals.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r2">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Paid Ads Optimizer</h4>
+              <p>Manages Google & Meta campaigns. AI-driven bidding, A/B testing, budget allocation.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r1">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Email Marketing Agent</h4>
+              <p>Drip campaigns, welcome sequences, re-engagement flows. Personalized at scale.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r2">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>LinkedIn Social Agent</h4>
+              <p>Auto-posts to LinkedIn, schedules content calendar, monitors engagement, grows audience.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r1">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Community & Engagement</h4>
+              <p>Responds to comments, engages prospects, builds relationships in target communities.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+          <div class="agent-card reveal r2">
+            <div class="agent-marker"></div>
+            <div class="agent-info">
+              <h4>Analytics & Reporting</h4>
+              <p>Real-time dashboards, weekly reports, predictive insights. Knows what's working before you ask.</p>
+              <div class="status">Online — Active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HOW IT WORKS -->
+<section class="editorial" id="process">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-sidebar reveal">
+        <span class="label">How We Build</span>
+        <p class="sidebar-desc">Six modules. Each builds on the last. Start lean, scale as results prove value.</p>
+      </div>
+      <div>
+        <h2 class="sec-headline reveal">Deployed in six modules.<br><span class="accent">Each builds on the last.</span></h2>
+        <div class="modules-grid">
+          <div class="module-item reveal r1">
+            <span class="module-num">01</span>
+            <h4>Discovery & Strategy</h4>
+            <p>Audit operations, define ICP, set KPIs, map agent architecture.</p>
+          </div>
+          <div class="module-item reveal r2">
+            <span class="module-num">02</span>
+            <h4>Agent Deployment</h4>
+            <p>Configure and deploy your AI team with roles, tools, and workflows.</p>
+          </div>
+          <div class="module-item reveal r3">
+            <span class="module-num">03</span>
+            <h4>Content Engine</h4>
+            <p>AI content pipeline — blogs, social, email copy, ad creative.</p>
+          </div>
+          <div class="module-item reveal r1">
+            <span class="module-num">04</span>
+            <h4>Lead & Sales Pipeline</h4>
+            <p>Automated prospecting, lead scoring, CRM, nurture sequences.</p>
+          </div>
+          <div class="module-item reveal r2">
+            <span class="module-num">05</span>
+            <h4>Paid Acquisition</h4>
+            <p>Google Ads + Meta with AI-driven bidding and optimization.</p>
+          </div>
+          <div class="module-item reveal r3">
+            <span class="module-num">06</span>
+            <h4>Intelligence Layer</h4>
+            <p>Analytics, reporting, and optimization tying everything together.</p>
+          </div>
+        </div>
+        <div class="gap-banner reveal" style="margin-top:2rem">
+          <p>Minimum viable deployment: Start with modules 1 + 2 + 6. Everything runs in your environment. Nothing depends on Agentix to operate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- QUOTE -->
+<section class="quote-block" id="thinking">
+  <div class="container">
+    <div class="label quote-label reveal">Operating Doctrine</div>
+    <blockquote class="reveal r1">Tools are inputs. Architecture is the outcome. You don't scale by adding software — you scale by <span class="accent">changing how your business operates.</span></blockquote>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- IS THIS YOU -->
+<section class="editorial">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-sidebar reveal">
+        <span class="label">Is This You?</span>
+        <p class="sidebar-desc">We built this for a specific kind of business.</p>
+      </div>
+      <div>
+        <h2 class="sec-headline reveal">Built for businesses ready to <span class="accent">operate differently.</span></h2>
+        <div class="qualify-grid">
+          <div class="qualify-box yes reveal r1">
+            <h3>Right Fit</h3>
+            <ul>
+              <li>Small business or startup, 2–50 employees</li>
+              <li>Revenue-generating but resource-constrained</li>
+              <li>Doing marketing manually or inconsistently</li>
+              <li>Ready to invest in systems, not headcount</li>
+              <li>Wants enterprise execution at startup prices</li>
+            </ul>
+          </div>
+          <div class="qualify-box no reveal r2">
+            <h3>Not the Right Fit</h3>
+            <ul>
+              <li>Enterprise with existing AI infrastructure</li>
+              <li>Looking for a one-time project</li>
+              <li>Not ready to trust AI with execution</li>
+              <li>Needs a traditional agency with account managers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA -->
+<section class="cta-section" id="start">
+  <div class="container">
+    <div class="label reveal">Start Here</div>
+    <h2 class="reveal r1">This isn't a demo.<br><span class="accent">It's a scoping conversation.</span></h2>
+    <p class="sec-body reveal r2" style="text-align:center;margin-left:auto;margin-right:auto">Tell us about your business. We'll tell you exactly which AI agents you need, what they'll do, and what results to expect in 90 days.</p>
+    <a href="mailto:Info@agentixaisolutions.com" class="cta-btn reveal r3">Book a Free Scoping Call</a>
+    <div class="cta-note reveal r4">Every inquiry reviewed by a founder, not a filter.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="logo-icon"></span> AGENTIX AI</div>
+        <p>Autonomous AI agent teams for small businesses and startups. Enterprise execution, startup prices.</p>
+      </div>
+      <div class="footer-links-row">
+        <div class="footer-col">
+          <h5>Navigate</h5>
+          <a href="#agents">The Agents</a>
+          <a href="#services">Services</a>
+          <a href="#process">How It Works</a>
+          <a href="#thinking">Our Thinking</a>
+        </div>
+        <div class="footer-col">
+          <h5>Engage</h5>
+          <a href="#start">Book a Call</a>
+          <a href="mailto:Info@agentixaisolutions.com">Email</a>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Agentix AI Solutions</span>
+      <span>agentixaisolutions.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+
+// Scroll reveal with IntersectionObserver
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})
+},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'})
+  })
+});
+
+// Animate stat numbers
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    const el=e.target;const raw=el.textContent.trim();
+    const numMatch=raw.match(/[\d,]+/);
+    if(numMatch){
+      const num=parseInt(numMatch[0].replace(/,/g,''));
+      const prefix=raw.substring(0,raw.indexOf(numMatch[0]));
+      const suffix=raw.substring(raw.indexOf(numMatch[0])+numMatch[0].length);
+      if(num>0&&num<100000){
+        let c=0;const step=Math.max(1,Math.ceil(num/30));
+        const iv=setInterval(()=>{c+=step;if(c>=num){c=num;clearInterval(iv)}
+          el.textContent=prefix+(num>=1000?c.toLocaleString():c)+suffix},35);
+      }
+    }
+    cObs.unobserve(el)}})
+},{threshold:.5});
+document.querySelectorAll('.stat .num').forEach(el=>cObs.observe(el));
+
+// Draw connecting lines on diagram
+function drawDiagramLines(){
+  const d=document.getElementById('diagram');
+  if(!d)return;
+  const dots=d.querySelectorAll('.diagram-dot');
+  if(dots.length<2)return;
+  // Create SVG overlay for lines
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none';
+  svg.setAttribute('viewBox','0 0 420 420');
+  const w=420;
+  // Get dot positions relative to diagram
+  const positions=[];
+  dots.forEach(dot=>{
+    const dr=d.getBoundingClientRect();
+    const dotr=dot.getBoundingClientRect();
+    positions.push({
+      x:((dotr.left+dotr.width/2-dr.left)/dr.width)*w,
+      y:((dotr.top+dotr.height/2-dr.top)/dr.height)*w
+    });
+  });
+  // Connect each dot to center and adjacent dots
+  const cx=w/2,cy=w/2;
+  positions.forEach((p,i)=>{
+    // Line to center
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',p.x);line.setAttribute('y1',p.y);
+    line.setAttribute('x2',cx);line.setAttribute('y2',cy);
+    line.setAttribute('stroke','rgba(255,255,255,0.04)');
+    line.setAttribute('stroke-width','1');
+    svg.appendChild(line);
+    // Line to next dot
+    const next=positions[(i+1)%positions.length];
+    const line2=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line2.setAttribute('x1',p.x);line2.setAttribute('y1',p.y);
+    line2.setAttribute('x2',next.x);line2.setAttribute('y2',next.y);
+    line2.setAttribute('stroke','rgba(255,255,255,0.04)');
+    line2.setAttribute('stroke-width','1');
+    svg.appendChild(line2);
+  });
+  d.appendChild(svg);
+}
+window.addEventListener('load',()=>setTimeout(drawDiagramLines,500));
+</script>
+</body>
+</html>
